@@ -12,7 +12,11 @@ const userRole = {
   STUDENT: "student",
 };
 
-const Sidebar = () => {
+interface SidebarProps {
+  collapsed: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const role = "student";
   let sidebarItems;
 
@@ -32,7 +36,20 @@ const Sidebar = () => {
   }
 
   return (
-    <Sider breakpoint="lg" collapsedWidth="0">
+    <Sider
+      collapsible
+      collapsed={collapsed}
+      trigger={null}
+      collapsedWidth={0} // Fully collapse the sidebar
+      breakpoint="lg"
+      width={200} // Full width when expanded
+      style={{
+        height: "100vh",
+        left: 0,
+        top: 0,
+        bottom: 0,
+      }}
+    >
       <div
         style={{
           color: "white",
@@ -42,7 +59,7 @@ const Sidebar = () => {
           alignItems: "center",
         }}
       >
-        <h1>PH Uni</h1>
+        <h1 style={{ fontSize: collapsed ? "12px" : "18px" }}>PH Uni</h1>
       </div>
       <Menu
         theme="dark"

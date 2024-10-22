@@ -1,74 +1,39 @@
-import React from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, MenuProps } from "antd";
+import { Layout, Button } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import { useState } from "react";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
 
-const items = [
-  {
-    key: "1",
-    icon: <UserOutlined />,
-    label: "Dashboard",
-  },
-  {
-    key: "2",
-    icon: <VideoCameraOutlined />,
-    label: "Profile",
-  },
-  {
-    key: "3",
-    icon: <UploadOutlined />,
-    label: "Users",
-  },
-];
+const MainLayout = () => {
+  const [collapsed, setCollapsed] = useState(false);
 
-const App: React.FC = () => {
+  const toggleSidebar = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider
-        className=""
-        style={{
-          height: "100vh",
-
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div
-          style={{
-            color: "white",
-            height: "4rem",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1>University Management</h1>
-        </div>
-
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          items={items}
-        />
-      </Sider>
+    <Layout style={{ height: "100vh" }}>
+      <Sidebar collapsed={collapsed} />
       <Layout>
-        <Header style={{ padding: 0 }} />
+        <Header
+          style={{ padding: 0, background: "#001529", position: "relative" }}
+        >
+          {/* Sidebar toggle button */}
+          <Button
+            type="primary"
+            onClick={toggleSidebar}
+            style={{
+              position: "absolute",
+              top: "16px",
+              right: "16px", // Move to the top-right corner
+              zIndex: 1000,
+              transition: "right 0.3s ease", // Smooth transition
+            }}
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          />
+        </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
@@ -79,12 +44,9 @@ const App: React.FC = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
 };
 
-export default App;
+export default MainLayout;

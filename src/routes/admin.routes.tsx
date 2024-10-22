@@ -61,7 +61,7 @@ export const adminPaths = [
 //   []
 // );
 
-//* Programatical way
+//* Pragmatical way
 
 // export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
 //   if (item.path && item.element) {
