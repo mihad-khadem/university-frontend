@@ -15,9 +15,9 @@ const userRole = {
 interface SidebarProps {
   collapsed: boolean;
 }
-
+//! Sidebar Component
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
-  const role = "student";
+  const role = "admin";
   let sidebarItems;
 
   switch (role) {
@@ -34,6 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     default:
       break;
   }
+  console.dir(sidebarItems, { depth: null });
 
   return (
     <Sider
@@ -59,7 +60,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           alignItems: "center",
         }}
       >
-        <h1 style={{ fontSize: collapsed ? "12px" : "18px" }}>PH Uni</h1>
+        <h1 style={{ fontSize: collapsed ? "12px" : "18px" }}>
+          University App
+        </h1>
       </div>
       <Menu
         theme="dark"

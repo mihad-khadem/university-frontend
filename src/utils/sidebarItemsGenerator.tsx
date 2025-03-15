@@ -1,23 +1,16 @@
+import { TSidebarItem, TUserPath } from "../types";
 import { NavLink } from "react-router-dom";
-import { TSidebarItem, TUserPath } from "../types/sidebar.types";
 
-export const sidebarItemsGenerator = (
-  items: TUserPath[],
-  role: string
-): TSidebarItem[] => {
-  const sidebarItems = items.reduce((acc: TSidebarItem[], item: TUserPath) => {
-    // Check if item has path and element
-    if (item.path && item.element) {
+//! Side bar Items Generator
+export const sidebarItemsGenerator = (items: TUserPath[], role: string) => {
+  const sidebarItems = items.reduce((acc: TSidebarItem[], item) => {
+    if (item.path && item.name) {
       acc.push({
         key: item.name,
-        label: item.name,
-        children: item.children
-          ? sidebarItemsGenerator(item.children, role)
-          : [], // Recursively generate children
+        label: <NavLink to={`/${role}/${item.path}`}>{item.name}</NavLink>,
       });
     }
 
-    // If the item has children, map over them and create the NavLink
     if (item.children) {
       acc.push({
         key: item.name,
@@ -29,8 +22,8 @@ export const sidebarItemsGenerator = (
       });
     }
 
-    return acc; // Make sure to return the accumulator
-  }, []); // Initialize accumulator as an empty array
+    return acc;
+  }, []);
 
-  return sidebarItems; // Return the generated sidebar items
+  return sidebarItems;
 };
