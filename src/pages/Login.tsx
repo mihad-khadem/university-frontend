@@ -1,15 +1,14 @@
 import { Button } from "antd";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "../redux/features/auth/authApi";
-import { useAppDispatch } from "../redux/hooks";
-import { setUser } from "../redux/features/auth/authSlice";
-import { verifyToken } from "../utils/verifyToken";
+import { useLoginMutation } from "../redux/feature/auth/authApi";
+import { useAppDispatch } from "../redux/redux.hooks";
+import { setUser } from "../redux/feature/auth/authSlice";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      userId: "A-0002",
+      userId: "A-0001",
       password: "admin123",
     },
   });
@@ -21,17 +20,19 @@ const Login = () => {
       id: data.userId,
       password: data.password,
     };
+    login(userInfo);
 
     const res = await login(userInfo).unwrap();
-    const user = verifyToken(res.data.accessToken);
+    console.log(res);
 
-    dispatch(setUser({ user: user, token: res.data.accessToken }));
+    // const user = verifyToken(res.data.accessToken);
+    dispatch(setUser({ user: {}, token: res.data.accessToken }));
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label htmlFor="id">ID: </label>
+        <label htmlFor="id">User ID: </label>
         <input type="text" id="id" {...register("userId")} />
       </div>
       <div>

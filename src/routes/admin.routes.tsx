@@ -72,7 +72,7 @@ export const adminPaths = [
 //   []
 // );
 
-//* Programatical way
+// programmatic way
 
 // export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
 //   if (item.path && item.element) {
