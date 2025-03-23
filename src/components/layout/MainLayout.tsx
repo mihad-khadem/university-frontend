@@ -20,6 +20,10 @@ const MainLayout = () => {
         <Header
           style={{ padding: 0, background: "#001529", position: "relative" }}
         >
+          <h1 style={{ color: "white", paddingLeft: "16px" }}>
+            University Management System
+          </h1>
+
           {/* Sidebar toggle button */}
           <Button
             type="primary"

@@ -1,8 +1,10 @@
-import { Layout, Menu } from "antd";
+import { Button, Layout, Menu } from "antd";
 import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
+import { useAppDispatch } from "../../redux/redux.hooks";
+import { logout } from "../../redux/feature/auth/authSlice";
 
 const { Sider } = Layout;
 
@@ -17,6 +19,12 @@ interface SidebarProps {
 }
 //! Sidebar Component
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    console.log("Logout Clicked");
+
+    dispatch(logout());
+  };
   const role = "admin";
   let sidebarItems;
 
@@ -43,12 +51,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       trigger={null}
       collapsedWidth={0} // Fully collapse the sidebar
       breakpoint="lg"
-      width={200} // Full width when expanded
+      width={250} // Full width when expanded
       style={{
         height: "100vh",
         left: 0,
         top: 0,
         bottom: 0,
+        overflow: "auto",
       }}
     >
       <div
@@ -58,18 +67,38 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          background: "#001529",
         }}
       >
-        <h1 style={{ fontSize: collapsed ? "12px" : "18px" }}>
-          University App
-        </h1>
+        <h1 style={{ fontSize: collapsed ? "12px" : "18px" }}>Navigation</h1>
       </div>
       <Menu
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["4"]}
         items={sidebarItems}
+        style={{ padding: "6px" }}
       />
+
+      {/* Logout Button - Only Visible When Sidebar is Expanded */}
+      {!collapsed && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "16px",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <Button
+            onClick={handleLogout}
+            type="default"
+            style={{ width: "80%" }}
+          >
+            Logout
+          </Button>
+        </div>
+      )}
     </Sider>
   );
 };
