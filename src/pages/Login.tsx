@@ -1,8 +1,11 @@
-import { Button, Input, Form, Typography, message } from "antd";
+import { Button, Input, Form, Typography } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { useLoginMutation } from "../redux/feature/auth/authApi";
 import { useAppDispatch } from "../redux/redux.hooks";
-import { setUser } from "../redux/feature/auth/authSlice";
+import { setUser, TUser } from "../redux/feature/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { verifyToken } from "../utils/verifyToken";
+import { toast } from "sonner";
 
 const { Title } = Typography;
 
@@ -20,8 +23,11 @@ const Login = () => {
   });
 
   const [login, { error }] = useLoginMutation();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: { userId: string; password: string }) => {
+    // toaster
+    toast.loading("Logging in...", { id: "login", duration: 1000 });
     try {
       // console.log("✅Submitted Data:", data); // Check the form values
       const userInfo = {
@@ -31,16 +37,24 @@ const Login = () => {
 
       // Send login request and unwrap the response
       const res = await login(userInfo).unwrap();
-      console.log("Login Response:", res);
-
+      // user
+      const user = verifyToken(res.data.accessToken) as TUser;
+      // console.log("Login Response:", res);
       // Dispatch user data and token to Redux store
-      dispatch(setUser({ user: {}, token: res.data.accessToken }));
-
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      // navigate user to dashboard
+      navigate(`/${user.role}/dashboard`);
       // Show success message
-      message.success("Login successful! Welcome back.");
+      toast.success("Login successful!", {
+        id: "login",
+        duration: 1000,
+      });
     } catch (error) {
       console.error("Login error:", error);
-      message.error("Login failed. Please check your credentials.");
+      toast.error("Login failed! Please check your credentials.", {
+        id: "login",
+        duration: 2000,
+      });
     }
   };
 

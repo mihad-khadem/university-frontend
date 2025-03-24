@@ -21,7 +21,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
-    console.log("Logout Clicked");
+    // console.log("Logout Clicked");
 
     dispatch(logout());
   };
@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     default:
       break;
   }
-  console.dir(sidebarItems, { depth: null });
+  // console.dir(sidebarItems, { depth: null });
 
   return (
     <Sider
@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           background: "#001529",
         }}
       >
-        <h1 style={{ fontSize: collapsed ? "12px" : "18px" }}>Navigation</h1>
+        <h1 style={{ fontSize: "18px" }}>Navigation</h1>
       </div>
       <Menu
         theme="dark"

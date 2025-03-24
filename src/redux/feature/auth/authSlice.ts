@@ -1,9 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { useAppSelector } from "../../redux.hooks";
 
-type TUser = {
-  id: string;
-  password: string;
+export type TUser = {
+  userId: string;
+  role: string;
+  iat: number;
+  exp: number;
 };
 type TAuthState = {
   user: Record<string, TUser> | null;
@@ -19,10 +22,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (
-      state,
-      action: PayloadAction<{ user: Record<string, TUser>; token: string }>
-    ) => {
+    setUser: (state, action) => {
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
@@ -36,5 +36,7 @@ const authSlice = createSlice({
 // export action
 export const { setUser, logout } = authSlice.actions;
 export default authSlice.reducer;
-export const useCurrentToken = () => (state: RootState) => state.auth.token;
-export const selectCurrentUser = () => (state: RootState) => state.auth.user;
+export const useCurrentToken = () =>
+  useAppSelector((state: RootState) => state.auth.token);
+export const useCurrentUser = () =>
+  useAppSelector((state: RootState) => state.auth.user);
