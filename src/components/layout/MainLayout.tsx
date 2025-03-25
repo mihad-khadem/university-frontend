@@ -3,14 +3,21 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/feature/auth/authSlice";
 
 const { Header, Content } = Layout;
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-
+  const dispatch = useDispatch();
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
+  };
+  const handleLogout = () => {
+    // console.log("Logout Clicked");
+
+    dispatch(logout());
   };
 
   return (
@@ -23,7 +30,19 @@ const MainLayout = () => {
           <h1 style={{ color: "white", paddingLeft: "16px" }}>
             University Management System
           </h1>
-
+          {/* Logout button */}
+          <Button
+            onClick={handleLogout}
+            type="primary"
+            style={{
+              position: "absolute",
+              top: "16px",
+              right: "60px", // Move to the top-right corner
+              zIndex: 1000,
+            }}
+          >
+            Logout
+          </Button>
           {/* Sidebar toggle button */}
           <Button
             type="primary"

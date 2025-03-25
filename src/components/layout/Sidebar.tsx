@@ -1,10 +1,10 @@
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, MenuProps } from "antd";
 import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
 import { useAppDispatch } from "../../redux/redux.hooks";
-import { logout } from "../../redux/feature/auth/authSlice";
+import { useCurrentUser } from "../../redux/feature/auth/authSlice";
 
 const { Sider } = Layout;
 
@@ -19,17 +19,12 @@ interface SidebarProps {
 }
 //! Sidebar Component
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
-  const dispatch = useAppDispatch();
-  const handleLogout = () => {
-    // console.log("Logout Clicked");
+  const user = useCurrentUser();
+  const userRoleType = user?.role ?? "GUEST";
+  let sidebarItems: MenuProps["items"] = [];
 
-    dispatch(logout());
-  };
-  const role = "admin";
-  let sidebarItems;
-
-  switch (role) {
-    case userRole.ADMIN:
+  switch (userRoleType) {
+    case userRole?.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
     case userRole.FACULTY:
@@ -40,6 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       break;
 
     default:
+      sidebarItems = [];
       break;
   }
   // console.dir(sidebarItems, { depth: null });
@@ -79,26 +75,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         items={sidebarItems}
         style={{ padding: "6px" }}
       />
-
-      {/* Logout Button - Only Visible When Sidebar is Expanded */}
-      {!collapsed && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: "16px",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
-          <Button
-            onClick={handleLogout}
-            type="default"
-            style={{ width: "80%" }}
-          >
-            Logout
-          </Button>
-        </div>
-      )}
     </Sider>
   );
 };
