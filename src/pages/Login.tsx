@@ -17,6 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: { userId: string; password: string }) => {
+    // console.log("✅ Submitted Data:", data);
     toast.loading("Logging in...", { id: "login", duration: 1000 });
     try {
       const userInfo = {

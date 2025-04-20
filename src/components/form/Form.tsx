@@ -5,7 +5,7 @@ import {
   SubmitHandler,
 } from "react-hook-form";
 
-// 👇 Add 'extends FieldValues'
+
 type FormProps<T extends FieldValues> = {
   onSubmit: SubmitHandler<T>;
   children: React.ReactNode;

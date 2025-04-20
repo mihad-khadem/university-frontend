@@ -1,50 +1,76 @@
-# React + TypeScript + Vite
+# 🎓 University Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack University Management System built with **React**, **TypeScript**, **Tailwind CSS**, **Node.js**, **Express**, and **MongoDB**. This project is designed to handle university operations such as course creation, faculty assignment, user roles, and more — all with robust backend validation and frontend feedback.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Project Links
 
-## Expanding the ESLint configuration
+- 🚀 **Frontend Repo:** [university-frontend](https://github.com/mihad-khadem/university-frontend)
+- 🔧 **Backend Repo:** [university-management-server](https://github.com/mihad-khadem/university-management-project-server)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## ⚙️ Tech Stack
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 🌐 Frontend:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- React.js
+- TypeScript
+- Redux Toolkit
+- React Hook Form
+- React Router DOM
+- Zod (for schema validation)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 🖥 Backend:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+- TypeScript
+- Zod for validation
+- JWT Authentication
+- Bcrypt for password hashing
+- Centralized Error Handling (Zod, Mongoose, Cast, Duplicate)
+
+---
+
+## 📦 Features
+
+- 🔐 Role-based Authentication (Admin, Faculty, Student)
+- 📚 Course Management with prerequisites
+- 👨‍🏫 Faculty Assignment to Courses
+- 🧾 Dynamic Form Handling
+- 🧪 Centralized Error Handling and Input Validation
+- 📁 Modular & Scalable Folder Structure
+- ✅ Reusable UI components and services
+
+---
+
+## 📁 Project Structure
+
+### Frontend (React)
+
+- `src`: Frontend source code
+- `src/components`: Reusable UI components
+- `src/pages`: Page components
+- `src/routes`: Routing configuration
+- `src/utils`: Utility functions
+- `src/types`: Type definitions
+- `src/redux`: Redux state management
+- `src/hooks`: Custom hooks
+
+### Backend (Node.js)
+
+- `src`: Backend source code
+- `src/app`: Application entry point
+- `src/app.ts` : Application entry point
+- `src/server.ts`: Server configuration
+- `src/app/builders`: Middleware builders
+- `src/app/config`: Configuration files
+- `src/app/errors`: Error handlers
+- `src/app/interfaces`: Interface definitions
+- `src/app/middlewares`: Middleware functions
+- `src/app/modules`: Module definitions
+- `src/app/routes`: Route definitions
+- `src/app/utils`: Utility functions
